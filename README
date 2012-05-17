@@ -1,8 +1,61 @@
-Author: Sajith Amma
-Description: jRecorder is a jQuery plugin to enable a flash recorder in your webpages. You DON'T need to have a flash streaming server or RED5 server to do this recording.
+This is a fork of https://github.com/sythoos/jRecorder
 
-Project Documentation: http://www.sajithmr.me/jrecorder/
+The registered file is passed to server with the html form multipart/form-data in POST.
 
-Example Implementation: http://www.sajithmr.me/jrecorder/example1.html
+For this, the function of sendData is not recallable from javascript.
+Users should click on button in flash
 
-Author Domain: www.sajithmr.me
+Reasons:
+http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/net/URLRequest.html#contentType
+...
+In Flash Player 10 and later, if you use a multipart Content-Type (for example "multipart/form-data") that contains an upload (indicated by a "filename" parameter in a "content-disposition" header within the POST body), the POST operation is subject to the security rules applied to uploads:
+
+    The POST operation must be performed in response to a user-initiated action, such as a mouse click or key press.
+    If the POST operation is cross-domain (the POST target is not on the same server as the SWF file that is sending the POST request), the target server must provide a URL policy file that permits cross-domain access.
+
+Also, for any multipart Content-Type, the syntax must be valid (according to the RFC2046 standards). If the syntax appears to be invalid, the POST operation is subject to the security rules applied to uploads.
+É
+
+
+For send file and generic post data, I use UploadPostHelper
+http://marstonstudio.com/2007/10/19/how-to-take-a-snapshot-of-a-flash-movie-and-automatically-upload-the-jpg-to-a-server-in-three-easy-steps/
+http://labs.findsubstance.com/2008/04/03/as3-upload-encode-images/
+
+You must have Flash cs5.5+ and compile the source
+
+Flash make a ajax request.
+
+1.Make your form and write js function to get value of input and function for validation in jRecorder.js
+
+	$.jRecorder.get_name = function(){
+		return jQuery("input[name='name']").val()
+		
+	}
+
+				
+	$.jRecorder.callback_validateform = function(){
+
+		if ((jQuery("input[name='nome']").val()=='') || (jQuery("input[name='cognome']").val()=='')){
+			return false;
+			}else{
+				return true
+		}
+
+in Main.as write
+in finalize_recording() function
+
+var input_name:String = ExternalInterface.call("$.jRecorder.get_name");
+
+var postVariables:Object = {name:input_name}
+
+and
+
+urlRequest.data = UploadPostHelper.getPostData( 'hello.wav', recorder.output,postVariables);
+hello.wav is name of file, change this
+
+Compilate the fla file in swf.
+
+
+
+
+

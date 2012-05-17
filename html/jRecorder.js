@@ -10,6 +10,13 @@
  * Author: Sajith Amma
  * Version: 1.1
  * Date: 14 December 2011
+
+Version changes
+
+Added preview option right after recording.
+Added seperate function sendData to trigger to send data to server (it won't send automcatically to server)
+
+
  */
 
 /* Code is not verified using http://www.jshint.com/ */
@@ -227,7 +234,49 @@
 		
 	}
 	
+				$.jRecorder.callback_htmlsubmit = function(){
+		console.log("submit")
 		
+		
+	}
+					
+	$.jRecorder.callback_validateform = function(){
+		console.log("validateform")
+		//if ((jQuery("input[name='nome']").val()=='') || (jQuery("input[name='cognome']").val()=='')){
+		//	return false;
+		//	}else{
+				return true
+		//		}
+		
+		
+		
+		
+		
+	}
+					
+	
+	$.jRecorder.callback_validateformerror = function(){
+		//console.log("validateformerror")
+		//alert("campi non completi")
+		
+	}
+	
+		$.jRecorder.get_nome = function(){
+		return jQuery("input[name='cognome']").val()
+		
+	}
+	
+	
+		$.jRecorder.get_cognome = function(){
+		return jQuery("input[name='nome']").val()
+		
+	}
+		$.jRecorder.traccia = function(tr){
+		
+	
+       // $('#divdebug').html($('#divdebug').html()+tr);	
+		
+	}
 					
 	
 	//function to return flash object from name

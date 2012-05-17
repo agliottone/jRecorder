@@ -1,6 +1,6 @@
 This is a fork of https://github.com/sythoos/jRecorder
 
-The registered file is passed to server with the html form multipart/form-data in POST.
+The recorded file is passed to server with the html form multipart/form-data in POST.
 
 For this, the function of sendData is not recallable from javascript.
 Users should click on button in flash
